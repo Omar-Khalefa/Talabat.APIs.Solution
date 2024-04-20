@@ -20,7 +20,7 @@ namespace Talabat.Infrastructure
 			if (spec.Criteria is not null) //  p => p.Id = 1
 			{
 				query = query.Where(spec.Criteria);
-				//_dbContext.Set<Product>().Where(p => p.Id == 1)
+				//_dbContext.Products.Where(p => p.BrandId && p => P.CategoryId);
 			}
 			if(spec.OrderBy is not null)
 			{
@@ -31,7 +31,7 @@ namespace Talabat.Infrastructure
 				query = query.OrderByDescending(spec.OrderByDesc);
 			}
 				query = spec.Includes.Aggregate(query, (currentQuery, IncludeExpression) => currentQuery.Include(IncludeExpression));
-				//_dbContext.Set<Product>().Where(p => p.Id == 1).OrderBy(p => p.Name).include(p=>p.brand).include(p=>p.Category)
+				//_dbContext.Set<Product>().Where(p => p.Id == 1 && BrandId == 2 && CategoryId ==2).OrderBy(p => p.Name).include(p=>p.brand).include(p=>p.Category)
 			return query;
 		}
 	}
