@@ -4,7 +4,7 @@ using Talabat.Core.Entities;
 using Talabat.Core.Repositories.Contract;
 using Talabat.Repository.Data;
 using Talabat.Infrastructure;
-using Talabat.APIs.DTOs.Helpers;
+using Talabat.APIs.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Talabat.APIs.Errors;
