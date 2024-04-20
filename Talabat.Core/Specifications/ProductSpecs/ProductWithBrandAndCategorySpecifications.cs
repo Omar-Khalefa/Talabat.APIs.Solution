@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Talabat.Core.Entities;
+﻿using Talabat.Core.Entities;
 
 namespace Talabat.Core.Specifications.ProductSpecs
 {
-	public class ProductWithBrandAndCategorySpecifications :BaseSpecifications<Product>
+	public class ProductWithBrandAndCategorySpecifications : BaseSpecifications<Product>
 	{
-        // this Constructor Will Be Used For Creating An Object , That Will Be used To get All Products
-        public ProductWithBrandAndCategorySpecifications(ProductSpecParams specParams)
-			: base( p => 
+		// this Constructor Will Be Used For Creating An Object , That Will Be used To get All Products
+		public ProductWithBrandAndCategorySpecifications(ProductSpecParams specParams)
+			: base( p =>
 
-		               (!specParams.BrandId.HasValue || p.BrandId == specParams.BrandId.Value ) &&
-		               (!specParams.CategoryId.HasValue || p.CategoryId == specParams.CategoryId.Value)
-			
-			
+					   (string.IsNullOrEmpty(specParams.Search) || p.Name.ToLower().Contains(specParams.Search)) &&
+					   (!specParams.BrandId.HasValue || p.BrandId == specParams.BrandId.Value) &&
+					   (!specParams.CategoryId.HasValue || p.CategoryId == specParams.CategoryId.Value)
+
+
 			)
 		{
 			Includes.Add(p => p.brand);
@@ -44,18 +40,18 @@ namespace Talabat.Core.Specifications.ProductSpecs
 				AddOrderBy(p => p.Name);
 			}
 
-			
-			ApplyPageinaton(((specParams.PageIndex - 1) * specParams.PageSize),specParams.PageSize);
+
+			ApplyPageinaton(((specParams.PageIndex - 1) * specParams.PageSize), specParams.PageSize);
 		}
 		// this Constructor Will Be Used For Creating An Object , That Will Be used To get Product By Id
-		public ProductWithBrandAndCategorySpecifications( int id)
-            : base(p=>p.Id == id)
-        {
+		public ProductWithBrandAndCategorySpecifications(int id)
+			: base(p => p.Id == id)
+		{
 			Includes.Add(p => p.brand);
 			Includes.Add(p => p.Category);
 		}
-	
 
 
-    }
+
+	}
 }
