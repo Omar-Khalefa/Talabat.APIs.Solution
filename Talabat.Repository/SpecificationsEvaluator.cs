@@ -22,8 +22,16 @@ namespace Talabat.Infrastructure
 				query = query.Where(spec.Criteria);
 				//_dbContext.Set<Product>().Where(p => p.Id == 1)
 			}
+			if(spec.OrderBy is not null)
+			{
+				query = query.OrderBy(spec.OrderBy);
+			}
+			else if(spec.OrderByDesc is not null)
+			{
+				query = query.OrderByDescending(spec.OrderByDesc);
+			}
 				query = spec.Includes.Aggregate(query, (currentQuery, IncludeExpression) => currentQuery.Include(IncludeExpression));
-				//_dbContext.Set<Product>().Where(p => p.Id == 1).include(p=>p.brand).include(p=>p.Category)
+				//_dbContext.Set<Product>().Where(p => p.Id == 1).OrderBy(p => p.Name).include(p=>p.brand).include(p=>p.Category)
 			return query;
 		}
 	}
